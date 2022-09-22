@@ -16,7 +16,7 @@ def get_urls(url, username, password):
         # login to ArcGIS Online
         gis = GIS(url, username, password)
         # add message
-        print('logged into {}'.format(gis))
+        print(f'logged into {gis}')
 
         # arcgis online standard basemaps group
         basemaps_group = gis.groups.get('702026e41f6641fb85da88efe79dc166')
@@ -24,17 +24,18 @@ def get_urls(url, username, password):
         group_content = basemaps_group.content()
         # add message
         print('got items in basemaps group')
-        print('storing url\'s for deprecated basemaps...')       
+        print('storing url\'s for deprecated basemaps...')
 
         # loop over items in basemap group
         for item in group_content:
-            # item may not have 'contentStatus' key
-            try:
-                # get item with 'deprecated' status
-                if item['contentStatus'] == 'deprecated':                        
+            # check if item has 'contentStatus' key
+            if 'contentStatus' in item.keys():
+                # check if contentStatus is 'deprecated'
+                if item['contentStatus'] == 'deprecated':
                     # get data/properties for item
                     item_data = item.get_data()
                     # in case item does not have 'baseMap' or 'baseMapLayers' keys
+                    # TODO: convert to stacked conditional to test for both keys
                     try:
                         # loop over basemaps
                         for basemap in item_data['baseMap']['baseMapLayers']:
@@ -44,13 +45,11 @@ def get_urls(url, username, password):
                     except KeyError:
                         # move onto to next item in list
                         continue
-            # handle error with missing key
-            except KeyError:
-                # move onto to next item in list
-                continue
+            else:
+                print(f'{item} does not have "contentStatus" key')
         # end loop over group content
         # add message
-        print('completed storing url\'s for deprecated basemaps')        
+        print('completed storing url\'s for deprecated basemaps')
     except (Exception, EnvironmentError) as e:
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
