@@ -19,6 +19,6 @@ def write_data(csv_file, content):
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
         # TODO: generate file name through code logic
-        print('error at Line {} in "write_csv_file.py"'.format(tbE.tb_lineno))
+        print(f'error at Line {tbE.tb_lineno} in "write_csv_file.py"')
         # Write the error print( to the log file
-        print('error: {}'.format(str(e)))
+        print(f'error: {str(e)}')

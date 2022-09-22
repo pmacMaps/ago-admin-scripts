@@ -15,14 +15,14 @@ def get_content(url, username, password):
         # login to ArcGIS Online
         gis = GIS(url, username, password)
         # add message
-        print('logged into {}'.format(gis))
+        print(f'logged into {gis}')
         print('generating list of users...')
 
         # generate list of users in ArcGIS Online organization
         # update 'max_users' to account for number of users in your organization
         org_users = gis.users.search(query=None, sort_field='username', sort_order='asc', max_users=500, outside_org=False, exclude_system=True)
         # add message
-        print('generated list of users')        
+        print('generated list of users')
         print('generating list of public content in organization...')
         # loop over users in organization
         for user in org_users:
@@ -54,9 +54,9 @@ def get_content(url, username, password):
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
         # TODO: generate file name through code logic
-        print('error at Line {} in "get_org_public_content.py"'.format(tbE.tb_lineno))
+        print(f'error at Line {tbE.tb_lineno} in "get_org_public_content.py"'.format(tbE.tb_lineno))
         # Write the error print( to the log file
-        print('error: {}'.format(str(e)))
+        print(f'error: {str(e)}')
     finally:
         # return list of public shared content in organization
         return org_public_content
