@@ -15,7 +15,7 @@ def get_maps(url, username, password):
         # login to ArcGIS Online
         gis = GIS(url, username, password)
         # add message
-        print('logged into {}'.format(gis))
+        print(f'logged into {gis}')
         print('generating list of users...')
 
         # generate list of users in ArcGIS Online or Portal organization
@@ -24,7 +24,7 @@ def get_maps(url, username, password):
         # add message
         print('generated list of users')
         print('generating list of web maps in organization...')
-             
+
         # loop over users in organization
         for user in org_users:
             # get items in user's root directory
@@ -55,9 +55,9 @@ def get_maps(url, username, password):
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
         # TODO: generate file name through code logic
-        print('error at Line {} in "get_org_webmaps.py'.format(tbE.tb_lineno))
+        print(f'error at Line {tbE.tb_lineno} in "get_org_webmaps.py')
         # Write the error print( to the log file
-        print('error: {}'.format(str(e)))
+        print(f'error: {str(e)}')
     finally:
         # return list of itemid's for web maps
         return org_web_maps

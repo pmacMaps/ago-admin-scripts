@@ -17,24 +17,25 @@ def get_data(url, username, password, webmaps, deprecated_basemaps):
         # login to ArcGIS Online
         gis = GIS(url, username, password)
         # add message
-        print('logged into {}'.format(gis))
+        print(f'logged into {gis}')
         print('generating list of webmaps with deprecated basemaps...')
         # loop over web maps and get basemap property
         for item in webmaps:
             # web map item
             map_item = gis.content.get(item)
-            # web map data 
+            # web map data
             map_data = map_item.get_data()
             # list for webmap's basemap urls
             basemap_list = []
             # in case item does not have 'baseMap' or 'baseMapLayers' keys
+            # TODO: test for dict keys properties instead of try/except
             try:
                 # loop over basemap data for item
                 for basemap in map_data['baseMap']['baseMapLayers']:
-                        # in case item does not have 'url' key        
+                        # in case item does not have 'url' key
                         try:
                             # check if basemap url is in deprecated basemaps list
-                            if basemap['url'] in deprecated_basemaps:                        
+                            if basemap['url'] in deprecated_basemaps:
                                 basemap_list.append(basemap['url'])
                         # handle error with missing key
                         except KeyError:
@@ -57,9 +58,9 @@ def get_data(url, username, password, webmaps, deprecated_basemaps):
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
         # TODO: generate file name through code logic
-        print('error at Line {} in "get_webmap_dep_data.py'.format(tbE.tb_lineno))
+        print(f'error at Line {tbE.tb_lineno} in "get_webmap_dep_data.py')
         # Write the error print( to the log file
-        print('error: {}'.format(str(e)))
-    finally:        
+        print(f'error: {str(e)}')
+    finally:
         # return list of deprecated basemap REST urls
         return webmap_data
