@@ -54,7 +54,7 @@ def get_content(url, username, password):
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
         # TODO: generate file name through code logic
-        print(f'error at Line {tbE.tb_lineno} in "get_org_public_content.py"'.format(tbE.tb_lineno))
+        print(f'error at Line {tbE.tb_lineno} in "get_org_public_content.py"')
         # Write the error print( to the log file
         print(f'error: {str(e)}')
     finally:

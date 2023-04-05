@@ -54,9 +54,9 @@ def get_urls(url, username, password):
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file
         # TODO: generate file name through code logic
-        print('error at Line {} in "get_deprecated_basemaps.py'.format(tbE.tb_lineno))
+        print(f'error at Line {tbE.tb_lineno} in "get_deprecated_basemaps.py')
         # Write the error print( to the log file
-        print('error: {}'.format(str(e)))
+        print(f'error: {str(e)}')
     finally:
         # return list of deprecated basemap REST urls
         return basemap_service_urls

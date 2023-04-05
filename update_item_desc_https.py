@@ -34,7 +34,7 @@ try:
                 if 'http:' in item_desc:
                     # update http: to https:
                     item_desc.replace('http:', 'https:')
-                    print('updated item "{}"'.format(item))
+                    print(f'updated item "{item}"')
 except (Exception, EnvironmentError) as e:
         tbE = sys.exc_info()[2]
         # Write the line number the error occured to the log file

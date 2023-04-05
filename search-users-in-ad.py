@@ -42,7 +42,7 @@ try:
     # TODO: update parameters
     # assumes admin account credentials saved in operating system environment variable
     gis = GIS('https://[slug].maps.arcgis.com/', environ.get('username'), environ.get('password'))
-    log_message += '\nGIS: {}\n'.format(gis)
+    log_message += f'\nGIS: {gis}\n'
     log_message += '\ngenerating report of ArcGIS Online users...\n'
 
     # generate ArcGIS Online Users Report
@@ -56,7 +56,7 @@ try:
         itemId = str(users_report['itemId'])
         # get generated user report
         users_report_item = gis.content.get(itemId)
-        log_message += '\nUsers report itemID is "{}"\n'.format(itemId)
+        log_message += f'\nUsers report itemID is "{itemId}"\n'
     # if 'itemId' key does not exist, user report does not likely exist
     else:
         log_message += '\nCould not find generated Users Report\n'
@@ -64,7 +64,7 @@ try:
         # exit script
         sys.exit()
 
-    log_message += '\ndownloading Users Report to "{}"\n'.format(out_dir)
+    log_message += f'\ndownloading Users Report to "{out_dir}"\n'
     # download user report (csv) to local disk
     users_report_item.download(out_dir, users_report_local_name)
     log_message += '\ncompleted downloading Users Report\n'
@@ -132,9 +132,9 @@ except (Exception, EnvironmentError) as e:
     # should I log old print statements to text file?
     tbE = sys.exc_info()[2]
     # Write the line number the error occured to the log file
-    log_message += '\nerror at Line {}\n'.format(tbE.tb_lineno)
+    log_message += f'\nerror at Line {tbE.tb_lineno}\n'
     # Write the error print to the log file
-    log_message += '\nerror: {}\n'.format(str(e))
+    log_message += f'\nerror: {str(e)}\n'
 finally:
     try:
         with open(path.join(script_report_dir, script_report_name), 'w') as f:
